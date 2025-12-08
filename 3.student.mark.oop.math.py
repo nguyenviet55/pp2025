@@ -52,11 +52,16 @@ class Mark:
     def display(self):
         print(f"{self.sid} {self.cid}: {self.mark}")
 
+# =========================
 #        DATA STORAGE
+# =========================
 students = []
 courses = []
 marks = []
+
+# =========================
 #        FUNCTIONS
+# =========================
 def input_students():
     n = int(input("Enter number of students: "))
     for _ in range(n):
@@ -106,8 +111,9 @@ def sort_gpa():
     print("\n=== SORTED BY GPA DESCENDING ===")
     list_students()
 
+# =========================
 #            MENU
-
+# =========================
 def menu():
     while True:
         print("""
