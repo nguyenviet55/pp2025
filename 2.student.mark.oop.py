@@ -40,7 +40,7 @@ class Mark:
         self.course = course
         self.marks = {}
 
-    # Polymorphism: receives any student object
+    
     def input(self, student):
         score = float(input(f"Enter mark for {student.get_name()}: "))
         self.marks[student.get_id()] = score
@@ -98,7 +98,7 @@ class Manager:
             print("No marks for this course!")
 
 
-# ========= Main ==========
+#  Main
 m = Manager()
 
 while True:
