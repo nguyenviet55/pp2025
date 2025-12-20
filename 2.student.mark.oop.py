@@ -40,9 +40,14 @@ class Mark:
         self.course = course
         self.marks = {}
 
-    
     def input(self, student):
         score = float(input(f"Enter mark for {student.get_name()}: "))
+
+        # IF 3: kiểm tra điểm hợp lệ
+        if score < 0 or score > 10:
+            print("Invalid mark (0–10)!")
+            return
+
         self.marks[student.get_id()] = score
 
     def show(self):
@@ -62,6 +67,13 @@ class Manager:
         for _ in range(n):
             s = Student()
             s.input()
+
+            # IF 1: kiểm tra trùng Student ID
+            for st in self.students:
+                if st.get_id() == s.get_id():
+                    print("Student ID already exists!")
+                    return
+
             self.students.append(s)
 
     def input_courses(self):
@@ -73,6 +85,8 @@ class Manager:
 
     def input_marks(self):
         cid = input("Enter course ID to input marks: ")
+
+        # IF 2: kiểm tra course tồn tại
         course = next((c for c in self.courses if c.get_id() == cid), None)
         if not course:
             print("Course not found!")
@@ -92,13 +106,16 @@ class Manager:
 
     def show_marks(self):
         cid = input("Enter course ID: ")
-        if cid in self.marks:
-            self.marks[cid].show()
-        else:
+
+        # dùng lại IF 2
+        if cid not in self.marks:
             print("No marks for this course!")
+            return
+
+        self.marks[cid].show()
 
 
-#  Main
+# ===== MAIN =====
 m = Manager()
 
 while True:
