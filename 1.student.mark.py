@@ -6,6 +6,11 @@ def input_students():
     n = int(input("Enter number of students: "))
     for _ in range(n):
         sid = input("Student ID: ")
+        for s in students:
+            if s["id"] == sid:
+                print("Student ID already exists!")
+                return
+
         name = input("Student name: ")
         dob = input("Date of birth: ")
         students.append({"id": sid, "name": name, "dob": dob})
@@ -18,10 +23,23 @@ def input_courses():
         courses.append({"id": cid, "name": cname})
 
 def input_marks():
-    cid = input("Enter course ID to input marks: ")
+    cid = input("Enter course ID: ")
+    found = False
+    for c in courses:
+        if c["id"] == cid:
+            found = True
+
+    if not found:
+        print("Course not found!")
+        return
+
     marks[cid] = {}
     for s in students:
         score = float(input(f"Enter mark for {s['name']}: "))
+        if score < 0 or score > 10:
+            print("Invalid mark!")
+            return
+
         marks[cid][s["id"]] = score
 
 def list_students():
@@ -34,6 +52,12 @@ def list_courses():
 
 def show_marks():
     cid = input("Enter course ID: ")
+
+    # dùng lại IF 2
+    if cid not in marks:
+        print("No marks for this course!")
+        return
+
     print(marks[cid])
 
 while True:
@@ -48,12 +72,19 @@ while True:
 
     choice = int(input("Choose an option: "))
 
-    if choice == 1: input_students()
-    elif choice == 2: input_courses()
-    elif choice == 3: input_marks()
-    elif choice == 4: list_students()
-    elif choice == 5: list_courses()
-    elif choice == 6: show_marks()
-    elif choice == 0: break
+    if choice == 1:
+        input_students()
+    elif choice == 2:
+        input_courses()
+    elif choice == 3:
+        input_marks()
+    elif choice == 4:
+        list_students()
+    elif choice == 5:
+        list_courses()
+    elif choice == 6:
+        show_marks()
+    elif choice == 0:
+        break
     else:
         print("Invalid choice!")
